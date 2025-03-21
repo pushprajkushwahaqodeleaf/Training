@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: busybox-deployment
+  labels:
+    app: busybox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox
+  template:
+    metadata:
+      labels:
+        app: busybox
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:latest
+        env:
+        - name: ENV_FROM_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: busybox-secret
+              key: busybox-env1
+        - name: ENV_FROM_CONFIGMAP
+          valueFrom:
+            configMapKeyRef:
+              name: busybox-config
+              key: busybox-env2
+        command: ["sleep", "3600"]
