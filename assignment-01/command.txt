@@ -1,0 +1,30 @@
+Created cluster with kind-for-services.yaml
+
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  extraPortMappings:
+  - containerPort: 30002
+    hostPort: 30002
+- role: worker
+- role: worker
+
+view context -> kubectl config get-contexts
+switch context -> kubectl config use-context mycontextname
+
+-----------------
+After creating deploy-nginx.yaml
+1-2. k apply -f deploy-nginx.yaml
+3. k port-forward svc/nginx-service 8080:30007
+
+4. 
+    k scale --current-replicas=3 --replicas=0 deploy/nginx-deployment
+    k scale --replicas=1 deploy/nginx-deployment
+5. k exec -it nginx-deployment-854d56bbc7-5b6hp -- curl 10.96.246.67
+6. k logs nginx-deployment-854d56bbc7-5b6hp
+7. k get pods -owide
+8. for ingress 
+setup metallb
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.13.7/config/manifests/metallb-native.yaml
+use metallb-config.yaml
