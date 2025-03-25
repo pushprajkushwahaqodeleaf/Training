@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Data</title>
+</head>
+<body>
+    <h1>View Data</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+        </thead>
+        <tbody id="data-table">
+            <!-- Data rows will be populated here -->
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/">Go Back to Add Data</a>
+
+    <script>
+        // Fetch the data from the server and display it
+        fetch('/get-data')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('data-table');
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    const ageCell = document.createElement('td');
+                    nameCell.textContent = item.name;
+                    ageCell.textContent = item.age;
+                    row.appendChild(nameCell);
+                    row.appendChild(ageCell);
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
+</body>
+</html>

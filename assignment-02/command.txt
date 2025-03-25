@@ -1,0 +1,16 @@
+create config map and secret for db related data
+configMap have 
+    database_name   
+    host    
+    database_user   
+secret have
+    postgres-password
+
+k apply -f global-configmap.yaml
+k apply -f global-secret.yaml
+k apply -f postgres-sts.yaml
+k apply -f frontend.yaml
+
+k get svc 
+frontend-service   NodePort    10.96.18.204   <none>        3000:30002/TCP   18s
+use http://localhost:30002/

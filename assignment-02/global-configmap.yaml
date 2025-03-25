@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: postgres-config
+data:
+    database_name: mydatabase
+    host: postgres-service.default.svc.cluster.local
+    database_user: postgres
