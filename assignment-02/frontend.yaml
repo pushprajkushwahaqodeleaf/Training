@@ -17,7 +17,6 @@ spec:
       nodeName: kind-for-assigment-control-plane
       containers:
       - name: frontend
-        # image: trideepnandi/nodejs-application:latest
         image: itsmrhashtag/frontend:latest
         env:
         - name: HOST
@@ -56,4 +55,4 @@ spec:
   ports:
     - port: 3000
       targetPort: 3000
-      nodePort: 30002
+      nodePort: 30003
